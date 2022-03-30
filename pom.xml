@@ -16,7 +16,13 @@
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>7.0.0</version>
+            <version>6.14.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>2.12.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -31,6 +37,43 @@
                    <suiteXmlFiles>
                        <suiteXmlFile>testng.xml</suiteXmlFile>
                    </suiteXmlFiles>
+                   <argLine>
+                       -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                   </argLine>
+                   <systemProperties>
+                       <property>
+                           <!-- 配置 allure 结果存储路径 -->
+                           <name>allure.results.directory</name>
+                           <value>${project.build.directory}/allure-results</value>
+                       </property>
+                   </systemProperties>
+               </configuration>
+               <dependencies>
+                   <dependency>
+                       <groupId>org.aspectj</groupId>
+                       <artifactId>aspectjweaver</artifactId>
+                       <version>${aspectj.version}</version>
+                   </dependency>
+                   <!--
+                   <dependency>
+                       <groupId>log4j</groupId>
+                       <artifactId>log4j</artifactId>
+                       <version>1.2.17</version>
+                   </dependency>
+                   <dependency>
+                       <groupId>org.slf4j</groupId>
+                       <artifactId>slf4j-simple</artifactId>
+                       <version>1.7.25</version>
+                       <scope>compile</scope>
+                   </dependency>-->
+               </dependencies>
+           </plugin>
+           <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-compiler-plugin</artifactId>
+               <configuration>
+                   <source>8</source>
+                   <target>8</target>
                </configuration>
            </plugin>
        </plugins>
